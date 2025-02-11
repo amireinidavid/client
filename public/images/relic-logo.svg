@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg 
+  width="300" 
+  height="100" 
+  viewBox="0 0 300 100" 
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  
+  <defs>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Background rectangle (optional, remove if you want transparent background) -->
+  <rect width="100%" height="100%" fill="transparent"/>
+  
+  <!-- Main text -->
+  <text 
+    x="150" 
+    y="60" 
+    font-family="'Playfair Display', serif"
+    font-size="48"
+    font-weight="600"
+    text-anchor="middle"
+    fill="#2D3436"
+    letter-spacing="1">
+    Relic.
+  </text>
+</svg> 
