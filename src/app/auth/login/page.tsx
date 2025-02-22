@@ -6,11 +6,54 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
+import fashionHero2 from "../../../../public/images/fashion-hero-2.jpg";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
+import { protectLoginAction, protectSignInAction } from "@/actions/auth";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const { login } = useAuthStore();
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const checkFirstLevelOfValidation = await protectLoginAction(
+      formData.email
+    );
+
+    if (!checkFirstLevelOfValidation.success) {
+      toast({
+        title: checkFirstLevelOfValidation.error,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const success = await login(formData.email, formData.password);
+    if (success) {
+      toast({
+        title: "Login Successfull!",
+      });
+      const user = useAuthStore.getState().user;
+      if (user?.role === "SUPER_ADMIN") router.push("/super-admin");
+      else router.push("/");
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,12 +88,11 @@ export default function LoginPage() {
         className="hidden lg:block w-1/2 relative overflow-hidden"
       >
         <div className="absolute inset-0 bg-black/30 z-10" />
-        <motion.img
-          initial={{ scale: 1.2 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.5 }}
-          src="/images/fashion-hero-2.jpg" // Different image for login
-          alt="Fashion"
+        <Image
+          alt="Login"
+          fill
+          priority
+          src={fashionHero2} // Different image for login
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="relative z-20 h-full flex flex-col justify-center items-center text-white p-12">
@@ -97,7 +139,7 @@ export default function LoginPage() {
               </p>
             </motion.div>
 
-            <form className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-8">
               <motion.div variants={itemVariants}>
                 <Label
                   htmlFor="email"
@@ -107,9 +149,11 @@ export default function LoginPage() {
                 </Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  value={formData.email}
+                  onChange={handleOnChange}
                   className="mt-2 h-16 text-lg bg-white/50 dark:bg-neutral-800/50 border-neutral-200 dark:border-neutral-700"
                   placeholder="you@example.com"
                 />
@@ -130,8 +174,10 @@ export default function LoginPage() {
                 <Input
                   id="password"
                   type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   className="mt-2 h-16 text-lg bg-white/50 dark:bg-neutral-800/50 border-neutral-200 dark:border-neutral-700"
                   placeholder="••••••••"
                 />

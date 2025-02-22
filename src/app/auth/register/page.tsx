@@ -7,6 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import React, { useState } from "react";
 import Link from "next/link";
+import { protectSignUpAction } from "@/actions/auth";
+import { useToast } from "@/hooks/use-toast";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useRouter } from "next/navigation";
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -14,14 +18,43 @@ function RegisterPage() {
     email: "",
     password: "",
   });
-
+  const { toast } = useToast();
+  const { register } = useAuthStore();
   console.log(formData);
+  const router = useRouter();
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const checkFirstLevelOfValidation = await protectSignUpAction(
+      formData.email
+    );
+    if (!checkFirstLevelOfValidation.success) {
+      toast({
+        title: checkFirstLevelOfValidation.error,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const userId = await register(
+      formData.name,
+      formData.email,
+      formData.password
+    );
+
+    if (userId) {
+      toast({
+        title: "Registration Successfull!",
+      });
+      router.push("/auth/login");
+    }
   };
 
   const containerVariants = {
@@ -111,7 +144,7 @@ function RegisterPage() {
               </p>
             </motion.div>
 
-            <form className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-8">
               <motion.div variants={itemVariants}>
                 <Label
                   htmlFor="name"

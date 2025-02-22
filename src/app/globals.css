@@ -8,57 +8,70 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
+    /* Modern, luxury fashion color scheme */
+    --background: 0 0% 98%;
+    --foreground: 240 10% 3.9%;
+
+    /* Primary: Deep Navy */
+    --primary: 230 40% 15%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+
+    /* Secondary: Warm Gray */
+    --secondary: 24 5% 64%;
+    --secondary-foreground: 240 10% 3.9%;
+
+    /* Accent: Soft Gold */
+    --accent: 38 40% 55%;
+    --accent-foreground: 240 10% 3.9%;
+
+    /* Muted: Sophisticated grays */
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    /* Card & UI Elements */
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 230 40% 15%;
+
+    /* Sale/Discount colors */
+    --sale: 346 84% 61%;
+    --discount: 142 76% 36%;
+
+    --radius: 0.75rem;
+
+    --navbar-height: 4rem;
   }
+
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 230 40% 15%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+
+    /* Primary: Lighter Blue for dark mode */
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Secondary: Lighter Slate */
+    --secondary: 215 16% 47%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Other UI colors adjusted for dark mode */
+    --muted: 217 19% 27%;
+    --muted-foreground: 215 20% 65%;
+
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --border: 217 19% 27%;
+    --input: 217 19% 27%;
+    --ring: 224 76% 48%;
+  }
+  body {
+    @apply antialiased;
   }
 }
 
@@ -69,4 +82,216 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Add these styles for smooth slide transitions */
+.swiper-fade .swiper-slide {
+  opacity: 0 !important;
+  transition: opacity 0.8s ease;
+}
+
+.swiper-fade .swiper-slide-active {
+  opacity: 1 !important;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(5%);
+  }
+  100% {
+    transform: translateX(-5%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite alternate;
+}
+
+@layer utilities {
+  .container {
+    @apply max-w-[1440px] mx-auto;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70;
+  }
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+  .glass-effect {
+    @apply bg-background/50 backdrop-blur-sm;
+  }
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 5s ease infinite;
+  }
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #a855f7 #e5e7eb;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #a855f7, #3b82f6);
+    border-radius: 3px;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Container utilities */
+.container-width {
+  @apply max-w-[1400px] mx-auto px-4;
+}
+
+/* Section spacing utilities */
+.section-spacing {
+  @apply py-12 md:py-24;
+}
+
+/* Page top padding (accounting for fixed navbar) */
+.page-padding-top {
+  padding-top: var(--navbar-height);
+}
+
+/* Responsive padding utilities */
+.responsive-padding {
+  @apply px-4 sm:px-6 lg:px-8;
+}
+
+/* Add new utility classes */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.hover-button {
+  @apply opacity-0 transform translate-y-4 transition-all duration-300 ease-out;
+}
+
+.group:hover .hover-button {
+  @apply opacity-100 transform translate-y-0;
+}
+
+/* Smooth loading animation */
+.loading-skeleton {
+  @apply animate-pulse bg-gray-200 dark:bg-gray-700;
+}
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.container-width {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Improve button hover states */
+.button-hover {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Add custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/50 rounded-full hover:bg-primary transition-colors;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+  }
+}
+
+.hover-button {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.group:hover .hover-button {
+  opacity: 1;
+  transform: translateY(0);
+}
+.thumbnails-swiper {
+  height: 400px !important;
+}
+
+.thumbnails-swiper .swiper-slide {
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.thumbnails-swiper .swiper-slide-thumb-active {
+  opacity: 1;
 }
