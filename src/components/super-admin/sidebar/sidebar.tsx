@@ -47,57 +47,57 @@ const menuItems = [
   {
     name: "Orders",
     icon: MdShoppingCart,
-    href: "/super-admin/orders",
+    href: "/super-admin/order/list",
   },
   {
     name: "Coupons",
     icon: MdCardGiftcard,
-    href: "/super-admin/coupons",
+    href: "/super-admin/coupons/list",
   },
   {
     name: "Hero Section",
     icon: MdStar,
-    href: "/super-admin/hero",
+    href: "/super-admin/hero/list",
   },
   {
     name: "Featured Categories",
     icon: MdCategory,
-    href: "/super-admin/categories",
+    href: "/super-admin/featuredCategories/list",
   },
   {
     name: "Trending Products",
     icon: BsBox,
-    href: "/super-admin/trending",
+    href: "/super-admin/trending-products/list",
   },
   {
     name: "Promotional Banners",
     icon: BsTagsFill,
-    href: "/super-admin/promotions",
+    href: "/super-admin/promotional-banner/list",
   },
   {
     name: "Recommendations",
     icon: MdPeople,
-    href: "/super-admin/recommendations",
+    href: "/super-admin/recommendations/list",
   },
   {
     name: "Flash Sales",
     icon: BsLightning,
-    href: "/super-admin/flash-sales",
+    href: "/super-admin/flashsale/list",
   },
   {
     name: "Blog Posts",
     icon: MdNewspaper,
-    href: "/super-admin/blog",
+    href: "/super-admin/blog/list",
   },
   {
     name: "Trust Signals",
     icon: MdNotifications,
-    href: "/super-admin/trust-signals",
+    href: "/super-admin/trust-signals/list",
   },
   {
     name: "Settings",
     icon: FiSettings,
-    href: "/super-admin/settings",
+    href: "/super-admin/settings/list",
   },
 ];
 

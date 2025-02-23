@@ -1,3 +1,5 @@
+import { ProductStatus } from "@/store/UseProductsStore";
+
 export interface FlashSale {
   id: string;
   productId: string;
@@ -35,7 +37,7 @@ export interface Product {
   baseStock: number;
   soldCount: number;
   rating: number | null;
-  status: string;
+  status: ProductStatus;
   metadata: any | null;
   slug: string;
   isFeatured: boolean;
@@ -52,9 +54,9 @@ export interface Product {
   variations: Array<{
     id: string;
     productId: string;
-    type: string;
+    type: "clothes" | "shoes";
     size: string;
-    color: string | null;
+    color?: string;
     stock: number;
     createdAt: string;
     updatedAt: string;
@@ -90,6 +92,8 @@ export interface Product {
     originalPrice: number;
     stock: number;
     soldCount: number;
+    startTime: string;
+    endTime: string;
   };
 }
 export interface ProductImage {

@@ -11,6 +11,7 @@ import {
   ProductStatus,
   ProductVariation,
   ProductSpec,
+  Category,
 } from "@/store/UseProductsStore";
 import { Button } from "@/components/ui/button";
 import {
@@ -172,14 +173,6 @@ interface SpecificationItem {
   group?: string;
 }
 
-export interface Category {
-  id: string;
-  name: string;
-  type: ProductType;
-  description?: string;
-  image?: string;
-}
-
 // Define interface for form state
 interface ProductFormState {
   name: string;
@@ -267,8 +260,8 @@ const SuperAdminProductsAddPage = () => {
                 ? {
                     enabled: true,
                     discountPercentage: product.flashSale.discount.toString(),
-                    startTime: product.flashSale.startTime,
-                    endTime: product.flashSale.endTime,
+                    startTime: product.flashSale.startTime || "",
+                    endTime: product.flashSale.endTime || "",
                   }
                 : {
                     enabled: false,
@@ -684,7 +677,9 @@ const SuperAdminProductsAddPage = () => {
                     <div className="space-y-4">
                       {isEditMode && existingImages.length > 0 && (
                         <div className="mb-4">
-                          <p className="text-sm text-muted-foreground mb-2">Existing Images:</p>
+                          <p className="text-sm text-muted-foreground mb-2">
+                            Existing Images:
+                          </p>
                           <div className="flex flex-wrap gap-2">
                             {existingImages.map((image, index) => (
                               <div key={index} className="relative">
@@ -717,13 +712,17 @@ const SuperAdminProductsAddPage = () => {
                         >
                           <Upload className="h-10 w-10 text-gray-400" />
                           <span className="mt-2 text-sm text-gray-500">
-                            {isEditMode ? "Upload new images" : "Upload product images"}
+                            {isEditMode
+                              ? "Upload new images"
+                              : "Upload product images"}
                           </span>
                         </label>
                       </div>
                       {form.watch("images").length > 0 && (
                         <div className="mt-4">
-                          <p className="text-sm text-muted-foreground mb-2">New Images:</p>
+                          <p className="text-sm text-muted-foreground mb-2">
+                            New Images:
+                          </p>
                           <div className="flex flex-wrap gap-2">
                             {form.watch("images").map((file, index) => (
                               <div key={index} className="relative">
@@ -844,8 +843,10 @@ const SuperAdminProductsAddPage = () => {
                       </motion.div>
                       {isEditMode ? "Updating..." : "Creating..."}
                     </div>
+                  ) : isEditMode ? (
+                    "Update Product"
                   ) : (
-                    isEditMode ? "Update Product" : "Create Product"
+                    "Create Product"
                   )}
                 </Button>
               </motion.div>
