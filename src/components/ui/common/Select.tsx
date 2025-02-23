@@ -17,10 +17,7 @@ interface SelectProps {
   placeholder?: string;
 }
 
-const Select = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Root>,
-  SelectProps
->(
+const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
   (
     { value, onChange, options, placeholder = "Select option", ...props },
     ref
@@ -29,10 +26,10 @@ const Select = React.forwardRef<
       <SelectPrimitive.Trigger
         ref={ref}
         className="flex h-10 w-full items-center justify-between rounded-md border 
-                 border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white 
-                 placeholder:text-neutral-500 focus:outline-none focus:ring-2 
-                 focus:ring-blue-400 focus:ring-offset-2 disabled:cursor-not-allowed 
-                 disabled:opacity-50"
+               border-neutral-200 bg-white px-3 py-2 text-sm ring-offset-white 
+               placeholder:text-neutral-500 focus:outline-none focus:ring-2 
+               focus:ring-blue-400 focus:ring-offset-2 disabled:cursor-not-allowed 
+               disabled:opacity-50"
       >
         <SelectPrimitive.Value placeholder={placeholder} />
         <SelectPrimitive.Icon>
@@ -42,7 +39,7 @@ const Select = React.forwardRef<
       <SelectPrimitive.Portal>
         <SelectPrimitive.Content
           className="relative z-50 min-w-[8rem] overflow-hidden rounded-md border 
-                   bg-white text-neutral-950 shadow-md animate-in fade-in-80"
+                 bg-white text-neutral-950 shadow-md animate-in fade-in-80"
         >
           <SelectPrimitive.Viewport className="p-1">
             {options.map((option) => (
