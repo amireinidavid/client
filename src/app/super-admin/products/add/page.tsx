@@ -382,7 +382,6 @@ const SuperAdminProductsAddPage = () => {
     ]);
   };
 
-  // Update the addSpecification function
   const addSpecification = () => {
     const currentSpecs = form.getValues("specifications");
     form.setValue("specifications", [
