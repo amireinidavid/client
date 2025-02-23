@@ -31,10 +31,12 @@ interface EditPromotionalBannerPageProps {
   params: {
     id: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default function EditPromotionalBannerPage({
   params,
+  searchParams,
 }: EditPromotionalBannerPageProps) {
   const { id } = params;
   const {
