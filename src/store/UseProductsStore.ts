@@ -3,6 +3,7 @@ import axios from "axios";
 import { create } from "zustand";
 import { z } from "zod";
 import type { Product } from "@/types";
+export type { Product };
 
 // Add this at the top of the file
 const axiosInstance = axios.create({
