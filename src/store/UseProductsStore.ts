@@ -134,6 +134,7 @@ interface ProductState {
     categoryId?: string;
     minPrice?: number;
     maxPrice?: number;
+    isFeatured?: boolean;
   }) => Promise<Product[]>;
   setCurrentPage: (page: number) => void;
 
