@@ -1,4 +1,5 @@
-export const API_BASE_URL = "http://localhost:5000";
+export const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export const API_ROUTES = {
   AUTH: `${API_BASE_URL}/api/auth`,
@@ -11,4 +12,3 @@ export const API_ROUTES = {
   ADDRESS: `${API_BASE_URL}/api/address`,
   ORDER: `${API_BASE_URL}/api/order`,
 };
-// process.env.NEXT_PUBLIC_API_URL ||
