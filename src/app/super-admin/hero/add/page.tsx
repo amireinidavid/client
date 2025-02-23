@@ -20,6 +20,7 @@ import { useState, useEffect } from "react";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import { Suspense } from "react";
 
 const heroSlideSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -32,11 +33,12 @@ const heroSlideSchema = z.object({
 
 type HeroSlideFormValues = z.infer<typeof heroSlideSchema>;
 
-export default function AddHeroSlidePage() {
+function AddHeroSlideContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const slideId = searchParams.get('id');
-  const { createHeroSlide, updateHeroSlide, heroSlides, fetchAdminHeroSlides } = useHomepageStore();
+  const slideId = searchParams.get("id");
+  const { createHeroSlide, updateHeroSlide, heroSlides, fetchAdminHeroSlides } =
+    useHomepageStore();
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +63,7 @@ export default function AddHeroSlidePage() {
         setIsLoading(true);
         try {
           await fetchAdminHeroSlides();
-          const slide = heroSlides.find(s => s.id === slideId);
+          const slide = heroSlides.find((s) => s.id === slideId);
           if (slide) {
             form.reset({
               title: slide.title,
@@ -111,7 +113,9 @@ export default function AddHeroSlidePage() {
       router.push("/super-admin/hero/list");
       router.refresh();
     } catch (error) {
-      toast.error(slideId ? "Failed to update hero slide" : "Failed to create hero slide");
+      toast.error(
+        slideId ? "Failed to update hero slide" : "Failed to create hero slide"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -125,7 +129,9 @@ export default function AddHeroSlidePage() {
     <div className="container mx-auto py-10">
       <Card>
         <CardHeader>
-          <CardTitle>{slideId ? "Edit Hero Slide" : "Add New Hero Slide"}</CardTitle>
+          <CardTitle>
+            {slideId ? "Edit Hero Slide" : "Add New Hero Slide"}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -138,9 +144,9 @@ export default function AddHeroSlidePage() {
                     <FormItem>
                       <FormLabel>Title</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Enter title" 
-                          {...field} 
+                        <Input
+                          placeholder="Enter title"
+                          {...field}
                           onChange={(e) => field.onChange(e.target.value)}
                           value={field.value}
                         />
@@ -157,8 +163,8 @@ export default function AddHeroSlidePage() {
                     <FormItem>
                       <FormLabel>Subtitle</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Enter subtitle" 
+                        <Input
+                          placeholder="Enter subtitle"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value)}
                           value={field.value}
@@ -198,8 +204,8 @@ export default function AddHeroSlidePage() {
                     <FormItem>
                       <FormLabel>CTA Text</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Enter CTA text" 
+                        <Input
+                          placeholder="Enter CTA text"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value)}
                           value={field.value}
@@ -217,8 +223,8 @@ export default function AddHeroSlidePage() {
                     <FormItem>
                       <FormLabel>CTA Link</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Enter CTA link" 
+                        <Input
+                          placeholder="Enter CTA link"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value)}
                           value={field.value}
@@ -279,5 +285,13 @@ export default function AddHeroSlidePage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function AddHeroSlidePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AddHeroSlideContent />
+    </Suspense>
   );
 }

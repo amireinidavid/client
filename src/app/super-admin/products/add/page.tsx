@@ -61,6 +61,7 @@ import { Clock } from "lucide-react";
 import { protectProductFormAction } from "@/actions/product";
 import Image from "next/image";
 import { Upload } from "lucide-react";
+import { Suspense } from "react";
 
 interface FlashSale {
   enabled: boolean;
@@ -195,7 +196,8 @@ interface ProductFormState {
   };
 }
 
-const SuperAdminProductsAddPage = () => {
+// Separate component for form with search params
+function ProductForm() {
   const {
     createProduct,
     isLoading,
@@ -855,7 +857,25 @@ const SuperAdminProductsAddPage = () => {
       </div>
     </motion.div>
   );
-};
+}
+
+// Intermediate component
+function AddProductContent() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductForm />
+    </Suspense>
+  );
+}
+
+// Main page component
+export default function AddProductPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AddProductContent />
+    </Suspense>
+  );
+}
 
 const VariationsSection = ({
   form,
@@ -1438,5 +1458,3 @@ const FlashSaleSection = ({
     </div>
   );
 };
-
-export default SuperAdminProductsAddPage;
