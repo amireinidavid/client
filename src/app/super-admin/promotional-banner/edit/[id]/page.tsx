@@ -26,18 +26,17 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { Metadata } from "next";
 
-interface EditPromotionalBannerPageProps {
-  params: {
-    id: string;
-  };
+type Props = {
+  params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
-}
+};
 
 export default function EditPromotionalBannerPage({
   params,
   searchParams,
-}: EditPromotionalBannerPageProps) {
+}: Props) {
   const { id } = params;
   const {
     promotionalBanners,
