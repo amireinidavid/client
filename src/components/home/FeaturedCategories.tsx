@@ -55,6 +55,8 @@ export default function FeaturedCategories() {
                   originalPrice: product.price,
                   stock: product.baseStock || 0,
                   soldCount: product.soldCount || 0,
+                  startTime: "",
+                  endTime: "",
                 },
               }}
             />
